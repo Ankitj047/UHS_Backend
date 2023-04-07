@@ -14,7 +14,7 @@ const registerSchema = mongoose.Schema({
           },
     },
     pass: {
-        type:Number,
+        type:String,
         minLength: 4
     }
 })

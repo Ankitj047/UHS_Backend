@@ -19,6 +19,14 @@ const registerSchema = mongoose.Schema({
     }
 })
 
+//bcrypt
+registerSchema.pre("save", async function (next){
+
+  if (this.isModified("pass")){
+    this.pass = await bcrypt.hash(this.pass, 10)
+  }
+ next();
+})
 const registeruser = new mongoose.model('Userdata', registerSchema)
 
 module.exports = registeruser

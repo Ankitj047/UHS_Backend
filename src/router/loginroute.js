@@ -10,22 +10,19 @@ try {
     const password = req.body.pass
 // console.log(`${email} email and ${password}`) 
   const useremailverify =  await User.findOne({email: email})
+  console.log(useremailverify._id,"useremailverify")
 
   const isMatch = await bcrypt.compare(password, useremailverify.pass)
 
-  const token = await useremailverify.generateAuthToken()
+//   const token = await useremailverify.generateAuthToken()
 
   const token1 = jwt.sign({
-    token: token
-}, 'secret', { expiresIn: 3000 });
-
-console.log(token1,"token1")
-
-setTimeout(()=> {console.log(token1,"token1check")}, 4000)
+    userid: useremailverify._id , email : useremailverify.email
+}, process.env.SECRET_KEY, {expiresIn: "6000"});
 
 if (useremailverify !== null){
 if(isMatch){
-    res.status(200).send({ id :useremailverify._id, messaage: "successful", token: token})
+    res.status(200).send({ id :useremailverify._id, messaage: "successful", token: token1})
 }
 else{
     res.send("Invalid password")

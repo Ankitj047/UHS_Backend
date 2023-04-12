@@ -17,26 +17,8 @@ const registerSchema = mongoose.Schema({
     pass: {
         type:String,
         minLength: 4
-    },
-    tokens: [{
-      token: {
-        type: String,
-        require: true,
-      }
-    }]
+    }
 })
-//jwttoken 
-registerSchema.methods.generateAuthToken = async function () {
-
-  try {
-    const token = jwttoken.sign({_id:this._id.toString()}, process.env.SECRET_KEY)
-    this.tokens = this.tokens.concat({token: token})
-    await this.save();
-return token;
-  } catch (error) {
-    console.log(error?.message)
-  }
-}
 
 //bcrypt
 registerSchema.pre("save", async function (next){

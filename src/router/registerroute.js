@@ -1,14 +1,11 @@
 const express = require("express");
 const registerroute = new express.Router;
 const User = require("../Models/register")
-const jwttoken = require('jsonwebtoken')
 
 registerroute.post("/regissteruser", async (req, res) => {
     console.log(req.body)
     try {
       const userdata = new User(req.body);
-
-      const token = await userdata.generateAuthToken()
       const createusers = await userdata.save();
       return res.status(200).send(createusers);
     } catch (error) {

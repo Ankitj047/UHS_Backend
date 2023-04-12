@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express");
 const cors = require("cors");
+const auth = require("./middleware/auth")
 
 require("./database/connection")
 
@@ -18,7 +19,7 @@ app.use(express.json())
 
 app.use(registerroute)
 app.use(loginroute)
-app.use(loginuserroute)
+app.use(auth,loginuserroute)
 // app.send("hello")    
 app.listen(port, () => {
     console.log(`connection done on ${port} port`);

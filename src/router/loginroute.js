@@ -14,11 +14,9 @@ try {
 
   const isMatch = await bcrypt.compare(password, useremailverify.pass)
 
-//   const token = await useremailverify.generateAuthToken()
-
   const token1 = jwt.sign({
     userid: useremailverify._id , email : useremailverify.email
-}, process.env.SECRET_KEY, {expiresIn: "6000"});
+}, process.env.SECRET_KEY, {expiresIn: "1h"});
 
 if (useremailverify !== null){
 if(isMatch){

@@ -13,6 +13,6 @@ const userdataSchema = mongoose.Schema({
     userid: {type: String},
 })
 
-const loginuserdata = new mongoose.model("loginuserdata",userdataSchema)
+const loginuserdata = new mongoose.model("Userdata",userdataSchema)
 
 module.exports = loginuserdata

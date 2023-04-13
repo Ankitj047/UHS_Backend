@@ -28,6 +28,6 @@ registerSchema.pre("save", async function (next){
   }
  next();
 })
-const registeruser = new mongoose.model('Userdata', registerSchema)
+const registeruser = new mongoose.model('Regiserdata', registerSchema)
 
 module.exports = registeruser

@@ -11,6 +11,7 @@ const userdataSchema = mongoose.Schema({
     isaccept: {type: Boolean},
     diseasedes: {type: String},
     userid: {type: String},
+    familydata: {type: Array}
 })
 
 const loginuserdata = new mongoose.model("Userdata",userdataSchema)

@@ -1,19 +1,63 @@
 const express = require("express");
 const loginuserroute = new express.Router();
 const loginuserdata = require("../Models/userdata");
+const multer = require("multer")
+const { v4: uuidv4 } = require('uuid')
+const mongoose = require('mongoose')
 
-loginuserroute.patch("/userpersonaldata", async (req, res) => {
+//img storage path
+const imgconfig = multer.diskStorage({
+  destination: (req,file,callback)=>{
+    callback(null,'src/uploads')
+  },
+  filename: (req,file,callback)=>{
+    const fileName = file.originalname.toLowerCase().split(' ').join('-');
+    callback(null, uuidv4() + '-' + fileName)
+    // callback(null,`image-${Date.now()}-${file.originalname}`)
+  }
+})
+
+//img filter
+
+const isImage = (req,file,callback)=> {
+  if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    callback(null, true);
+} else {
+  callback(null, false);
+    return callback(new Error('Only .png, .jpg and .jpeg format allowed!'));
+}
+}
+
+const Upload = multer({
+  storage: imgconfig,
+  fileFilter:isImage
+}) 
+
+loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (req, res) => {
   try {
     const _id = req.body.userid;
+    const url = req.protocol + '://' + req.get('host')
     const userdataa = await loginuserdata.findOne({ userid: _id });
 
     if (userdataa) {
       const updatedUSer = await loginuserdata.findOneAndUpdate({ userid: _id },req.body,{new: true});
-      return res.status(200).send("updated");
+      return res.status(200).send({message: "Updated"});
     } else {
-      const userdata = new loginuserdata(req.body);
+      const userdata = new loginuserdata({
+        _id: new mongoose.Types.ObjectId(),
+        fname: req.body.fname,
+        lname: req.body.lname,
+        age: req.body.age,
+        email: req.body.email,
+        phone: req.body.phone,
+        isaccept : req.body.isaccept,
+        diseasedes: req.body.diseasedes,
+        userid: req.body.userid,
+        profilephoto: url + '/src/uploads/' + req.file.filename ,
+        familydata: req.body.familydata,
+      });
       const createusers = await userdata.save();
-      return res.status(200).send("Successfull");
+      return res.status(200).send({message: "Successfull"});
     }
   } catch (error) {
     console.log(error);
@@ -34,7 +78,6 @@ loginuserroute.get("/userpersonaldata/:id", async (req, res) => {
   try {
     const _id = req.params.id;
     const userdata = await loginuserdata.findOne({ userid: _id });
-    console.log(userdata);
     if (!userdata) {
       return res.status(404).send();
     } else {

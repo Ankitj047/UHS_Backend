@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 //img storage path
 const imgconfig = multer.diskStorage({
   destination: (req,file,callback)=>{
-    callback(null,'src/uploads')
+    callback(null,'public/images')
   },
   filename: (req,file,callback)=>{
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
@@ -53,7 +53,7 @@ loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (
         isaccept : req.body.isaccept,
         diseasedes: req.body.diseasedes,
         userid: req.body.userid,
-        profilephoto: url + '/src/uploads/' + req.file.filename ,
+        profilephoto: url + '/images/' + req.file.filename ,
         familydata: req.body.familydata,
       });
       const createusers = await userdata.save();

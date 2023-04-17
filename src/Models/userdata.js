@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-
-
 const userdataSchema = mongoose.Schema({
     fname: {type: String},
     lname: {type: String},
@@ -11,6 +9,7 @@ const userdataSchema = mongoose.Schema({
     isaccept: {type: Boolean},
     diseasedes: {type: String},
     userid: {type: String},
+    profilephoto: {type: String},
     familydata: {type: Array}
 })
 

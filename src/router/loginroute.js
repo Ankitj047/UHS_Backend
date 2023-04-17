@@ -21,7 +21,7 @@ if(isMatch){
     res.status(200).send({ id :useremailverify._id, messaage: "successful", token: token1})
 }
 else{
-    res.status(200).send("Invalid password")
+    res.status(400).send("Invalid password")
 }}
 else {
 res.send("Invalid mail")

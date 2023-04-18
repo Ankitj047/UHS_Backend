@@ -10,6 +10,10 @@ const port = process.env.PORT || 5000
 const registerroute = require("./router/registerroute")
 const loginroute = require("./router/loginroute")
 const loginuserroute = require('./router/userdataroute')
+const subjectroute = require('./router/subjectroute')
+const diseaseData = require('./router/diseaseroute');
+const diseaseroute = require("./router/diseaseroute");
+
 
 app.use(cors({
     origin: '*'
@@ -21,6 +25,8 @@ app.use('/images', express.static('images'));
 app.use(registerroute)
 app.use(loginroute)
 app.use(auth,loginuserroute)
+app.use(subjectroute)
+app.use(diseaseroute)
 // app.send("hello")    
 app.listen(port, () => {
     console.log(`connection done on ${port} port`);

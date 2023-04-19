@@ -101,4 +101,5 @@ loginuserroute.patch("/familydata", async (req, res) => {
   }
 });
 
+
 module.exports = loginuserroute;

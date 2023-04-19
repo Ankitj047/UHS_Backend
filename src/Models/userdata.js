@@ -10,7 +10,8 @@ const userdataSchema = mongoose.Schema({
     diseasedes: {type: String},
     userid: {type: String},
     profilephoto: {type: String},
-    familydata: {type: Array}
+    familydata: {type: Array},
+    diseasedata: {type: Array}
 })
 
 const loginuserdata = new mongoose.model("Userdata",userdataSchema)

@@ -11,7 +11,6 @@ const registerroute = require("./router/registerroute")
 const loginroute = require("./router/loginroute")
 const loginuserroute = require('./router/userdataroute')
 const subjectroute = require('./router/subjectroute')
-const diseaseData = require('./router/diseaseroute');
 const diseaseroute = require("./router/diseaseroute");
 
 

@@ -4,6 +4,7 @@ const familyDataRoute = new express.Router()
 
 
 familyDataRoute.post("/familyAdd", async (req, res)=> {
+    console.log(req.body)
     try {
         const check = req.body.familyData
         userIdData = req.body.userID
@@ -17,7 +18,14 @@ familyDataRoute.post("/familyAdd", async (req, res)=> {
     }
 })
 
-
-
-
+familyDataRoute.get("/familyDataGet", async (req, res)=> {
+    try {
+        const id = req.query.userID
+        console.log(id)
+        const getFamilyData = await familyData.find({userIdData:id})
+        res.send(getFamilyData)
+    } catch (error) {
+        res.send(error?.message)
+    }
+})
 module.exports = familyDataRoute

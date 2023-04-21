@@ -16,6 +16,6 @@ const familyDataSchema = mongoose.Schema({
     }
 })
 
-const familyData = new mongoose.model("FanilyData", familyDataSchema)
+const familyData = new mongoose.model("FamilyData", familyDataSchema)
 
 module.exports = familyData;

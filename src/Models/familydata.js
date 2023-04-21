@@ -2,11 +2,17 @@ const mongoose = require("mongoose")
 
 
 const familyDataSchema = mongoose.Schema({
-    userID : {
+    userIdData : {
         type: String
     },
-    familyData : {
-        type : Object
+    fname : {
+        type : String
+    },
+    lname:{
+        type: String
+    },
+    age : {
+        type: String
     }
 })
 

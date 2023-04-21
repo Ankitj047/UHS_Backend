@@ -5,14 +5,19 @@ const familyDataRoute = new express.Router()
 
 familyDataRoute.post("/familyAdd", async (req, res)=> {
     try {
-        console.log(req.body,"req.body")
-        const userData = new familyData(req.body)
-        const familyDatas = await userData.save()
-        return res.status(200).send(familyDatas)
+        const check = req.body.familyData
+        userIdData = req.body.userID
+        const mapCheck = check.map((item)=> (Object.assign(item, {userIdData})) )
+        const userData =  mapCheck.map(async(item)=> {
+            const newData =  new familyData(item)
+            await newData.save()})
+        return res.status(200).send(userData)
     } catch (error) {
         res.send(error?.message)
     }
 })
+
+
 
 
 module.exports = familyDataRoute

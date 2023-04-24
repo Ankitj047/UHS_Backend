@@ -9,8 +9,7 @@ const userdataSchema = mongoose.Schema({
     isaccept: {type: Boolean},
     diseasedes: {type: String},
     userid: {type: String},
-    profilephoto: {type: String},
-    familydata: {type: Array},
+    profilephoto: {type: String}
 })
 
 const loginuserdata = new mongoose.model("Userdata",userdataSchema)

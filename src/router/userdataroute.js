@@ -89,17 +89,17 @@ loginuserroute.get("/userpersonaldata/:id", async (req, res) => {
   }
 });
 
-loginuserroute.patch("/familydata", async (req, res) => {
-  try {
-    const _id = req.body.userid;
-      const updatedUSer = await loginuserdata.findOneAndUpdate({userid : _id}, {familydata : req.body.familydata},{new : true});
-      console.log(req.body,"body")
-      return res.status(200).send(updatedUSer);
-  } catch (error) {
-    console.log(error);
-    return res.status(401).send(error?.message);
-  }
-});
+// loginuserroute.patch("/familydata", async (req, res) => {
+//   try {
+//     const _id = req.body.userid;
+//       const updatedUSer = await loginuserdata.findOneAndUpdate({userid : _id}, {familydata : req.body.familydata},{new : true});
+//       console.log(req.body,"body")
+//       return res.status(200).send(updatedUSer);
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(401).send(error?.message);
+//   }
+// });
 
 
 module.exports = loginuserroute;

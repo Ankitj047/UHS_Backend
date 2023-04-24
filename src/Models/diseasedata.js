@@ -6,8 +6,11 @@ const diseaseDataSchema = mongoose.Schema({
         type: String,
         ref : "User"
     },
-    diseasesData : {
-        type: Array
+    diseasesID : {
+        type: String
+    },
+    personId: {
+        type: String
     }
 })
 

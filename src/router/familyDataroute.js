@@ -2,18 +2,27 @@ const express = require("express");
 const familyData = require("../Models/familydata");
 const familyDataRoute = new express.Router();
 
-familyDataRoute.post("/familyAdd", async (req, res) => {
+familyDataRoute.patch("/familyAdd", async (req, res) => {
   try {
     const check = req.body.familyData;
-    userIdData = req.body.userID;
+    const userIdData = req.body.userID;
     const mapCheck = check.map((item) => Object.assign(item, { userIdData }));
     const userData = mapCheck.map(async (item) => {
-      const newData = new familyData(item);
-      await newData.save();
+      const itemId = item?._id;
+      console.log(itemId,"itemId")
+      let previoususer = familyData.findOne({ _id: itemId });
+      if (previoususer && itemId !== undefined ) {
+        console.log("first")
+        const updateFamilyUser = await familyData.findOneAndUpdate({ _id: itemId }, item,{ new: true });
+      } else {
+        console.log("in")
+        const newData = new familyData(item);
+        await newData.save();
+      }
     });
-    return res.status(200).send(userData);
+return res.status(200).send({message:"succesfull"})    
   } catch (error) {
-    res.send(error?.message);
+    res.status(505).send(error?.message);
   }
 });
 

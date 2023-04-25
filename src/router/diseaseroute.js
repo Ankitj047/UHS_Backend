@@ -27,9 +27,12 @@ diseaseroute.post("/dieasedata", async (req, res) => {
 try {
   const checkData = req.body
 const data = checkData.map( async (item)=> {
-
+  const previoususer = await userDiseaseData.findOneAndDelete({personId : item.personId, diseasesID: item.diseasesID})
+  if (item.ISchecked == true){
 const dieasedata = new userDiseaseData(item)
-const updateDiease = await dieasedata.save()}
+const updateDiease = await dieasedata.save()
+}
+}
 )
 return res.status(200).send({message: "successfull"})
 } catch (error) {

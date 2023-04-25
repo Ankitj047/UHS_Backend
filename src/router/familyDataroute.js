@@ -9,7 +9,6 @@ familyDataRoute.patch("/familyAdd", async (req, res) => {
     const mapCheck = check.map((item) => Object.assign(item, { userIdData }));
     const userData = mapCheck.map(async (item) => {
       const itemId = item?._id;
-      console.log(itemId,"itemId")
       let previoususer = familyData.findOne({ _id: itemId });
       if (previoususer && itemId !== undefined ) {
         console.log("first")

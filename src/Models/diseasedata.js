@@ -11,6 +11,9 @@ const diseaseDataSchema = mongoose.Schema({
     },
     personId: {
         type: String
+    },
+    ISchecked : {
+        type: Boolean
     }
 })
 

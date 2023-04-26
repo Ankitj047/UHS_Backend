@@ -8,7 +8,8 @@ const userdataSchema = mongoose.Schema({
     phone: {type: String},
     isaccept: {type: Boolean},
     diseasedes: {type: String},
-    userid: {type: String},
+    userid: {   type: mongoose.Schema.Types.ObjectId,
+        ref : "Regiserdata"},
     profilephoto: {type: String}
 })
 

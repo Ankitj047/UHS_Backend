@@ -3,18 +3,21 @@ const mongoose = require('mongoose')
 
 const diseaseDataSchema = mongoose.Schema({
     userid : {
-        type: String,
-        ref : "User"
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "Regiserdata"
     },
     diseasesID : {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "diseases"
     },
     personId: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "FamilyData"
     },
     ISchecked : {
         type: Boolean
-    }
+    },
+    
 })
 
 const userDiseaseData = new mongoose.model("Userdieseasdata", diseaseDataSchema)

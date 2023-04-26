@@ -11,7 +11,6 @@ familyDataRoute.patch("/familyAdd", async (req, res) => {
       const itemId = item?._id;
       let previoususer = familyData.findOne({ _id: itemId });
       if (previoususer && itemId !== undefined ) {
-        console.log("first")
         const updateFamilyUser = await familyData.findOneAndUpdate({ _id: itemId }, item,{ new: true });
       } else {
         console.log("in")

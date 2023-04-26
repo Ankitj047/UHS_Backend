@@ -11,19 +11,6 @@ diseaseroute.get("/disease", async (req, res) => {
 });
 
 diseaseroute.post("/dieasedata", async (req, res) => {
-//   try {
-// const UserID = req.body.userid
-// const getUserDiseaseData = await userDiseaseData.findOne({userid : UserID})
-// if (getUserDiseaseData){
-// const UpdateUserDiseaseData = await userDiseaseData.findOneAndUpdate({userid : UserID},req.body,{new: true})
-// }
-// else{
-//     const userData = new userDiseaseData(req.body);
-//     const diseaseGet = await userData.save();
-//     return res.status(200).send({ data: diseaseGet });}
-//   } catch (error) {
-//     console.log(error?.message);
-//   }
 try {
   const checkData = req.body
 const data = checkData.map( async (item)=> {
@@ -43,7 +30,7 @@ return res.status(200).send({message: "successfull"})
 diseaseroute.get("/dieasesDataGet", async (req, res) => {
   try {
     const Id = req.query.userId;
-    const getData = await userDiseaseData.findOne({ userid: Id });
+    const getData = await userDiseaseData.find({ userid: { $in: Id } });
     return res.status(200).send(getData);
   } catch (error) {
     console.log(error?.message);

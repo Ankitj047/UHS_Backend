@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 
 const familyDataSchema = mongoose.Schema({
     userIdData : {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "Regiserdata"
     },
     fname : {
         type : String

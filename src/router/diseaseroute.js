@@ -37,4 +37,16 @@ diseaseroute.get("/dieasesDataGet", async (req, res) => {
   }
 });
 
+diseaseroute.get("/dieasesDataGetandCountshow", async (req, res) => {
+  try {
+    const Id = req.query.userId;
+    const getData = await userDiseaseData.find({ userid: { $in: Id } });
+
+    const data = await userDiseaseData.find().populate(["personId",{path : "diseasesID", select : ["name","type"]}])
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log(error?.message);
+  }
+});
+
 module.exports = diseaseroute;

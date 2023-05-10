@@ -10,7 +10,6 @@ try {
 } catch (error) {
     res.status(401).send(error?.message)
 }
-
 }
 
 module.exports = auth;

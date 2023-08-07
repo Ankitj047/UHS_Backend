@@ -4,6 +4,7 @@ const diseasedata = require("../Models/diesease");
 const loginuserdata = require("../Models/userdata");
 const userDiseaseData = require("../Models/diseasedata");
 const { mongoose } = require("mongoose");
+const priceList = require("../Models/pricelist")
 
 diseaseroute.get("/disease", async (req, res) => {
   const diseasecheck = await diseasedata.find();
@@ -41,7 +42,28 @@ diseaseroute.get("/dieasesDataGetandCountshow", async (req, res) => {
   try {
     const Id = req.query.userId;
     const data = await userDiseaseData.find({ userid: { $in: Id } }).populate(["personId",{path : "diseasesID", select : ["name","type"]}])
-    return res.status(200).send(data);
+    const priceCalculate = data.map((item)=>{
+      
+      if (item.diseasesID.type == "Low" && item.personId.age < 10){
+        return {...item, price: 100}
+      }
+      else if (item.diseasesID.type == "Low" && item.personId.age > 10){
+        return {...item, price: 100}
+      }
+      else if (item.diseasesID.type == "Medium" && item.personId.age < 10){
+        return {...item, price: 100}
+      }
+      else if (item.diseasesID.type == "Medium" && item.personId.age > 10){
+        return {...item, price: 100}
+      }
+      else if (item.diseasesID.type == "High" && item.personId.age < 10){
+        return {...item, price: 100}
+      }
+      else if (item.diseasesID.type == "High" && item.personId.age > 10){
+        return {...item, price: 100}
+      }
+    })
+    return res.status(200).send(priceCalculate);
   } catch (error) {
     console.log(error?.message);
   }

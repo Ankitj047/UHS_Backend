@@ -14,6 +14,10 @@ const diseaseDataSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref : "FamilyData"
     },
+    // personId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref : "Userdata"
+    // },
     ISchecked : {
         type: Boolean
     },

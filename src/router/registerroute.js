@@ -34,8 +34,6 @@ registerroute.post("/regissteruser", async (req, res) => {
       } else {
         res.send(registerData);
       }
-  
-      res.send(registerData);
     } catch (error) {
       return res.status(401).send(error?.message);
     }
@@ -70,5 +68,22 @@ registerroute.patch("/regissteruser/:id", async (req, res)=>{
         return res.status(500).send(error?.message);
     }
 })
+
+
+//forgot password
+registerroute.get("/forgotpassword/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const registerData = await User.findById(_id);
+    console.log(registerData)
+    if (!registerData) {
+      return res.status(404).send();
+    } else {
+      res.send(registerData);
+    }
+  } catch (error) {
+    return res.status(401).send(error?.message);
+  }
+});
 
 module.exports = registerroute

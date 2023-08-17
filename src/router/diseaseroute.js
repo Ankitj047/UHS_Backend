@@ -80,7 +80,6 @@ const tempData = data.map((item)=>{
   }
   return item
 })
-console.log(tempData,"tempData")
 
     const priceCalculate = tempData.map((item)=>{
 

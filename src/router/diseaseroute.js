@@ -70,6 +70,7 @@ const filterData = allData.filter((item)=> item.userid == Id)
 const finalData = filterData.filter((item)=> item?.testdata?.length !==0)
 const postData = finalData[0]?.testdata[0]
 // console.log(postData,"finalData")
+
 // use lookup and get aggregateData till now 
 
 // const tempData = data.filter((item)=> item.personId !== null)
@@ -103,7 +104,6 @@ console.log(tempData,"tempData")
         return {...item, price: 100}
       }
     })
-    console.log(priceCalculate,"priceCalculate")
     return res.status(200).send(priceCalculate);
   } catch (error) {
     console.log(error?.message);

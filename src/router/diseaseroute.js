@@ -69,7 +69,6 @@ const allData = await aggregateWaitData()
 const filterData = allData.filter((item)=> item.userid == Id)
 const finalData = filterData.filter((item)=> item?.testdata?.length !==0)
 const postData = finalData[0]?.testdata[0]
-// console.log(postData,"finalData")
 
 // use lookup and get aggregateData till now 
 

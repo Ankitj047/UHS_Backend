@@ -12,7 +12,8 @@ const loginroute = require("./router/loginroute")
 const loginuserroute = require('./router/userdataroute')
 const subjectroute = require('./router/subjectroute')
 const diseaseroute = require("./router/diseaseroute");
-const familyDataRoute = require("./router/familyDataroute")
+const familyDataRoute = require("./router/familyDataroute");
+const mailRoute = require("./router/nodemailer")
 
 
 app.use(cors({
@@ -24,6 +25,7 @@ app.use(express.static('public'));
 app.use('/images', express.static('images'));
 app.use(registerroute)
 app.use(loginroute)
+app.use(mailRoute)
 app.use(auth,loginuserroute)
 app.use(subjectroute)
 app.use(diseaseroute)

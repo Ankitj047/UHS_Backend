@@ -71,13 +71,13 @@ registerroute.patch("/regissteruser/:id", async (req, res)=>{
 
 
 //forgot password
-registerroute.get("/forgotpassword/:id", async (req, res) => {
+registerroute.get("/forgotpassword/:email", async (req, res) => {
   try {
-    const _id = req.params.id;
-    const registerData = await User.findById(_id);
+    const email = req.params.email;
+    const registerData = await User.findOne({email: email});
     console.log(registerData)
     if (!registerData) {
-      return res.status(404).send();
+      return res.status(404).send("Email not available");
     } else {
       res.send(registerData);
     }

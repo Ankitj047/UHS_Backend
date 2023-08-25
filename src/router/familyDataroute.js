@@ -5,8 +5,8 @@ const familyDataRoute = new express.Router();
 familyDataRoute.patch("/familyAdd", async (req, res) => {
   try {
     const check = req.body.familyData;
-    const userIdData = req.body.userID;
-    const mapCheck = check.map((item) => Object.assign(item, { userIdData }));
+    const userId = req.body.userID;
+    const mapCheck = check.map((item) => Object.assign(item, { userId }));
     const userData = mapCheck.map(async (item) => {
       const itemId = item?._id;
       let previoususer = familyData.findOne({ _id: itemId });
@@ -27,7 +27,7 @@ return res.status(200).send({message:"succesfull"})
 familyDataRoute.get("/familyDataGet", async (req, res) => {
   try {
     const id = req.query.userID;
-    const getFamilyData = await familyData.find({ userIdData: id });
+    const getFamilyData = await familyData.find({ userId: id });
     res.send(getFamilyData);
   } catch (error) {
     res.send(error?.message);

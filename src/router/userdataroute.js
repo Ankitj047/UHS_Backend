@@ -37,10 +37,10 @@ loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (
   try {
     const _id = req.body.userid;
     const url = req.protocol + '://' + req.get('host')
-    const userdataa = await loginuserdata.findOne({ userid: _id });
+    const userdataa = await loginuserdata.findOne({ userId: _id });
 
     if (userdataa) {
-      const updatedUSer = await loginuserdata.findOneAndUpdate({ userid: _id },req.body,{new: true});
+      const updatedUSer = await loginuserdata.findOneAndUpdate({ userId: _id },req.body,{new: true});
       return res.status(200).send({message: "Updated"});
     } else {
       const userdata = new loginuserdata({
@@ -52,7 +52,7 @@ loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (
         phone: req.body.phone,
         isaccept : req.body.isaccept,
         diseasedes: req.body.diseasedes,
-        userid: req.body.userid,
+        userId: req.body.userid,
         profilephoto: url + '/images/' + req.file.filename ,
         familydata: req.body.familydata,
       });
@@ -77,7 +77,7 @@ loginuserroute.get("/userpersonaldata", async (req, res) => {
 loginuserroute.get("/userpersonaldata/:id", async (req, res) => {
   try {
     const _id = req.params.id;
-    const userdata = await loginuserdata.findOne({ userid: _id });
+    const userdata = await loginuserdata.findOne({ userId: _id });
     if (!userdata) {
       return res.status(404).send();
     } else {

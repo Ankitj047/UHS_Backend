@@ -3,7 +3,6 @@ const registerroute = new express.Router;
 const User = require("../Models/register")
 
 registerroute.post("/regissteruser", async (req, res) => {
-    console.log(req.body)
     try {
       const userdata = new User(req.body);
       const createusers = await userdata.save();
@@ -28,7 +27,6 @@ registerroute.post("/regissteruser", async (req, res) => {
     try {
       const _id = req.params.id;
       const registerData = await User.findById(_id);
-      console.log(registerData)
       if (!registerData) {
         return res.status(404).send();
       } else {
@@ -75,7 +73,6 @@ registerroute.get("/forgotpassword/:email", async (req, res) => {
   try {
     const email = req.params.email;
     const registerData = await User.findOne({email: email});
-    console.log(registerData)
     if (!registerData) {
       return res.status(404).send("Email not available");
     } else {

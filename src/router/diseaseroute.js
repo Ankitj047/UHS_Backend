@@ -12,7 +12,6 @@ diseaseroute.get("/disease", async (req, res) => {
 });
 
 diseaseroute.post("/dieasedata", async (req, res) => {
-  console.log(req.body,"req.body")
   try {
     const checkData = req.body;
     const data = checkData.map(async (item) => {
@@ -80,7 +79,6 @@ const tempData = data.map((item)=>{
   }
   return item
 })
-console.log(tempData,"tempData")
 
     const priceCalculate = tempData.map((item)=>{
 

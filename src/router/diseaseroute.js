@@ -12,6 +12,7 @@ diseaseroute.get("/disease", async (req, res) => {
 });
 
 diseaseroute.post("/dieasedata", async (req, res) => {
+  console.log(req.body,"req.body")
   try {
     const checkData = req.body;
     const data = checkData.map(async (item) => {
@@ -33,7 +34,7 @@ diseaseroute.post("/dieasedata", async (req, res) => {
 diseaseroute.get("/dieasesDataGet", async (req, res) => {
   try {
     const Id = req.query.userId;
-    const getData = await userDiseaseData.find({ userid: { $in: Id } });
+    const getData = await userDiseaseData.find({ userId: { $in: Id } });
     return res.status(200).send(getData);
   } catch (error) {
     console.log(error?.message);
@@ -43,8 +44,7 @@ diseaseroute.get("/dieasesDataGet", async (req, res) => {
 diseaseroute.get("/dieasesDataGetandCountshow", async (req, res) => {
   try {
     const Id = req.query.userId;
-    const data = await userDiseaseData.find({ userid: { $in: Id } }).populate(["personId",{path : "diseasesID", select : ["name","type"]}])
-   
+    const data = await userDiseaseData.find({ userId: { $in: Id } }).populate(["personId",{path : "diseasesID", select : ["name","type"]}])
     // use lookup and get aggregateData
 
     const aggregationPipeline = [{$lookup:{from:"userdatas", localField: "personId", foreignField:"_id", as: "testdata"}}, {$lookup : {from:"familydatas", localField: "personId", foreignField:"_id", as: "testfdata"}}]
@@ -66,7 +66,7 @@ diseaseroute.get("/dieasesDataGetandCountshow", async (req, res) => {
 
 const allData = await aggregateWaitData()
 
-const filterData = allData.filter((item)=> item.userid == Id)
+const filterData = allData.filter((item)=> item.userId == Id)
 const finalData = filterData.filter((item)=> item?.testdata?.length !==0)
 const postData = finalData[0]?.testdata[0]
 

@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 
 const familyDataSchema = mongoose.Schema({
-    userIdData : {
+    userId : {
         type: mongoose.Schema.Types.ObjectId,
         ref : "Regiserdata"
     },

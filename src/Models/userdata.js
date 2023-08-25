@@ -8,9 +8,10 @@ const userdataSchema = mongoose.Schema({
     phone: {type: String},
     isaccept: {type: Boolean},
     diseasedes: {type: String},
-    userid: {   type: mongoose.Schema.Types.ObjectId,
+    userId: {   type: mongoose.Schema.Types.ObjectId,
         ref : "Regiserdata"},
-    profilephoto: {type: String}
+    profilephoto: {type: String,
+    default: ""}
 })
 
 const loginuserdata = new mongoose.model("Userdata",userdataSchema)

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const diseaseDataSchema = mongoose.Schema({
-    userid : {
+    userId : {
         type: mongoose.Schema.Types.ObjectId,
         ref : "Regiserdata"
     },

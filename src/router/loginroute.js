@@ -13,7 +13,7 @@ try {
   const isMatch = await bcrypt.compare(password, useremailverify.pass)
 
   const token1 = jwt.sign({
-    userid: useremailverify._id , email : useremailverify.email
+    userId: useremailverify._id , email : useremailverify.email
 }, process.env.SECRET_KEY, {expiresIn: "1d"});
 
 if (useremailverify !== null){

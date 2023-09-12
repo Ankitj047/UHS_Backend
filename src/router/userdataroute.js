@@ -35,10 +35,9 @@ const Upload = multer({
 
 loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (req, res) => {
   try {
-    const _id = req.body.userid;
+    const _id = await req.body.userid;
     const url = req.protocol + '://' + req.get('host')
     const userdataa = await loginuserdata.findOne({ userId: _id });
-
     if (userdataa) {
       const updatedUSer = await loginuserdata.findOneAndUpdate({ userId: _id },req.body,{new: true});
       return res.status(200).send({message: "Updated"});

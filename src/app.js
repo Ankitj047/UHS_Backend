@@ -1,12 +1,32 @@
 require("dotenv").config();
+const http = require('http')
 const express = require("express");
 const cors = require("cors");
 const auth = require("./middleware/auth")
+const {Server} = require('socket.io')
 
 require("./database/connection")
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+      origin: '*',
+    },
+  });
 const port = process.env.PORT || 5000
+
+
+//socket request
+io.on('connection', (socket) => {
+    socket.on('new_message', (msg) => {
+        io.emit('new_message', msg);
+        console.log(msg)
+    })
+})
+
+
+// http request
 const registerroute = require("./router/registerroute")
 const loginroute = require("./router/loginroute")
 const loginuserroute = require('./router/userdataroute')
@@ -20,7 +40,7 @@ app.use(cors({
     origin: '*'
 }));
 
-app.use(express.json())
+app.use(express.json());
 app.use('/images', express.static('images'));
 app.use(express.static('public'));
 app.use(registerroute)
@@ -31,7 +51,7 @@ app.use(subjectroute)
 app.use(diseaseroute)
 app.use(familyDataRoute)
 // app.send("hello")    
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`connection done on ${port} port`);
   });
   

@@ -111,9 +111,21 @@ const tempData = data.map((item)=>{
 
 diseaseroute.post("/finalPrice", async (req, res)=> {
 try {
-  const finalPrice = new FinalPrice(req.body);
-  const createFinalPrice = await finalPrice.save();
-  return res.status(200).send(createFinalPrice)
+
+  const userID = req.body.userId;
+ 
+  let previousPrice = FinalPrice.findOne({userId : userID})
+
+  if (previousPrice !== undefined){
+    const updateFinalPrice = await FinalPrice.findOneAndUpdate({ userId : userID }, req.body,{ new: true });
+    return res.status(200).send(updateFinalPrice)
+  }
+  else {
+    const finalPricePost = new FinalPrice(req.body);
+    const createFinalPrice = await finalPricePost.save();
+    return res.status(200).send(createFinalPrice)
+  }
+  
 } catch (error) {
 console.log(error?.message)
 }

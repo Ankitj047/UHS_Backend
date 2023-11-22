@@ -8,7 +8,7 @@ price: {type: Number},
 IsActive: {type: Boolean} 
 })
 
-const finalPriceAccept = mongoose.Schema({
+const finalPriceAcceptSchema = mongoose.Schema({
     userId : {
         type: mongoose.Schema.Types.ObjectId,
         ref : "Regiserdata"
@@ -18,7 +18,7 @@ finalPrice: {type: Number}
 })
 
 const priceList = new mongoose.model("priceList", priceListSchema)
-const FinalPrice = new mongoose.model("finalPrice", finalPriceAccept)
+const FinalPrice = new mongoose.model("finalPriceData", finalPriceAcceptSchema)
 
 module.exports = priceList;
 module.exports = FinalPrice

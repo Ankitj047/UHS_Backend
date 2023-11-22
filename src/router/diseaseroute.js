@@ -5,6 +5,7 @@ const loginuserdata = require("../Models/userdata");
 const userDiseaseData = require("../Models/diseasedata");
 const { mongoose } = require("mongoose");
 const priceList = require("../Models/pricelist");
+const FinalPrice = require("../Models/pricelist")
 
 diseaseroute.get("/disease", async (req, res) => {
   const diseasecheck = await diseasedata.find();
@@ -106,5 +107,18 @@ const tempData = data.map((item)=>{
     console.log(error?.message);
   }
 });
+
+
+diseaseroute.post("/finalPrice", async (req, res)=> {
+try {
+  const finalPrice = new FinalPrice(req.body);
+  const createFinalPrice = await finalPrice.save();
+  return res.status(200).send(createFinalPrice)
+} catch (error) {
+console.log(error?.message)
+}
+
+})
+
 
 module.exports = diseaseroute;

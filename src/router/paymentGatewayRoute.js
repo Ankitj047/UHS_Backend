@@ -26,14 +26,13 @@ paymentGatewayDataRoute.post("/checkout", async (req, resp) => {
   try {
 
     const options = {
-      amount: req.body.amount, // amount in the smallest currency unit
+      amount: Number(req.body.amount * 100), // amount in the smallest currency unit so will chnage paise to rupee
       currency: "INR",
       receipt: "order_rcptid_11",
     };
 
     const order = await instance.orders.create(options);
     resp.status(200).send({ message: "succesfull" });
-    console.log(order,"order")
   } catch (error) {
     console.log(error.message);
   }

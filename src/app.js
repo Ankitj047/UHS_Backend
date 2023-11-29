@@ -34,7 +34,7 @@ const subjectroute = require('./router/subjectroute')
 const diseaseroute = require("./router/diseaseroute");
 const familyDataRoute = require("./router/familyDataroute");
 const mailRoute = require("./router/nodemailer")
-
+const paymentGatewayDataRoute = require("./router/paymentGatewayRoute")
 
 app.use(cors({
     origin: '*'
@@ -50,6 +50,7 @@ app.use(auth,loginuserroute)
 app.use(subjectroute)
 app.use(diseaseroute)
 app.use(familyDataRoute)
+app.use(paymentGatewayDataRoute)
 // app.send("hello")    
 server.listen(port, () => {
     console.log(`connection done on ${port} port`);

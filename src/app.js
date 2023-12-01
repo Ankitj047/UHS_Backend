@@ -41,16 +41,18 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));  // allow req.bady to contain any
 app.use('/images', express.static('images'));
 app.use(express.static('public'));
 app.use(registerroute)
 app.use(loginroute)
 app.use(mailRoute)
+app.use(paymentGatewayDataRoute,)
 app.use(auth,loginuserroute)
 app.use(subjectroute)
 app.use(diseaseroute)
 app.use(familyDataRoute)
-app.use(paymentGatewayDataRoute)
+
 // app.send("hello")    
 server.listen(port, () => {
     console.log(`connection done on ${port} port`);

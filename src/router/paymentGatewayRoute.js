@@ -39,9 +39,10 @@ paymentGatewayDataRoute.post("/checkout", async (req, resp) => {
 
 paymentGatewayDataRoute.post("/paymenetVerification", async (req, res) => {
   try {
+
     console.log(req.body, "req.body")
 
-    const {razorpay_payment_id, razorpay_order_id,razorpay_signature } = req.body
+    const {razorpay_payment_id, razorpay_order_id,razorpay_signature } = req.body;
 
   //  const generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, secret);
 

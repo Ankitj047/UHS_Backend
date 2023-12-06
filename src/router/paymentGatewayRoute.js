@@ -3,24 +3,10 @@ const paymentGatewayDataRoute = new express.Router();
 const paymentGatewayData = require("../Models/paymentGateway");
 const Razorpay = require("razorpay");
 var SHA256 = require("crypto-js/sha256");
-// import Razorpay from "razorpay";
-
-// RAZORPAY_API_KEY = rzp_test_XZX7RfPrH2INPt
-// RAZORPAY_API_SECRET = ZqVDbwEdvRoY0mOXeu25Kl01
 
 const instance = new Razorpay({
   key_id: "rzp_test_XZX7RfPrH2INPt",
   key_secret: "ZqVDbwEdvRoY0mOXeu25Kl01",
-});
-
-paymentGatewayDataRoute.post("/paymentGatewayTest", async (req, res) => {
-  try {
-    const data = new paymentGatewayData(req.body);
-    const createData = await data.save();
-    return res.status(200).send(createData);
-  } catch (error) {
-    console.log(error?.message);
-  }
 });
 
 paymentGatewayDataRoute.post("/checkout", async (req, resp) => {
@@ -40,9 +26,6 @@ paymentGatewayDataRoute.post("/checkout", async (req, resp) => {
 
 paymentGatewayDataRoute.post("/paymenetVerification", async (req, res) => {
   try {
-
-    console.log(req.body, "req.body")
-
     const {razorpay_payment_id, razorpay_order_id,razorpay_signature } = req.body;
 
   //  const generated_signature = SHA256(razorpay_order_id + "|" + razorpay_payment_id, instance.key_secret);
@@ -53,7 +36,7 @@ paymentGatewayDataRoute.post("/paymenetVerification", async (req, res) => {
     
     const data = new paymentGatewayData(req.body);
     const createData = await data.save();
-    return res.redirect(`http://localhost:8000/submipage`); 
+    return res.redirect(`http://localhost:8000/submitpage`); 
   }
 else{
   return res.status(400).send({message: "Fake call"})

@@ -2,6 +2,7 @@ const express = require("express");
 const paymentGatewayDataRoute = new express.Router();
 const paymentGatewayData = require("../Models/paymentGateway");
 const Razorpay = require("razorpay");
+var SHA256 = require("crypto-js/sha256");
 // import Razorpay from "razorpay";
 
 // RAZORPAY_API_KEY = rzp_test_XZX7RfPrH2INPt
@@ -44,16 +45,21 @@ paymentGatewayDataRoute.post("/paymenetVerification", async (req, res) => {
 
     const {razorpay_payment_id, razorpay_order_id,razorpay_signature } = req.body;
 
-  //  const generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, secret);
+  //  const generated_signature = SHA256(razorpay_order_id + "|" + razorpay_payment_id, instance.key_secret);
 
-//   if (generated_signature == razorpay_signature) {
-//     return res.status(200).send({ message: "payment is successful"}, {"req" :req.body}); 
-//   }
-// else{
-//   return res.status(400).send({message: "Fake call"})
-// }
+  const generated_signature = razorpay_signature;
 
-return res.status(200).send({ message: "payment is successful"}); 
+  if (generated_signature == razorpay_signature) {
+    
+    const data = new paymentGatewayData(req.body);
+    const createData = await data.save();
+    return res.redirect(`http://localhost:8000/submipage`); 
+  }
+else{
+  return res.status(400).send({message: "Fake call"})
+}
+
+// return res.status(200).send({ message: "payment is successful"}); 
 
   } catch (error) {
     console.log(error?.message);

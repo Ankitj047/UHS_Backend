@@ -55,7 +55,7 @@ pdfCreateRoute.post("/pdfCreate", async (req, resp) => {
 
         let info = await transporter.sendMail({
           from: 'ankit" <ifour.ankitjain@gmail.com>', // sender address
-          to: "ifour.shukla@gmail.com", // list of receivers
+          to: "ifour.ankitjain@gmail.com", // list of receivers
           subject: `Process Done Successfully`, // Subject line
           text: "Hello world?", // plain text body
           html: `Hello ${name}, Your Registration done successfully and as per your info you are eligible for UHS term plan.<br/>

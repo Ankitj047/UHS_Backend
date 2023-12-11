@@ -36,6 +36,7 @@ const familyDataRoute = require("./router/familyDataroute");
 const mailRoute = require("./router/nodemailer")
 const paymentGatewayDataRoute = require("./router/paymentGatewayRoute")
 const pdfCreateRoute = require("./router/pdfCreate")
+const excelImportRoute = require("./router/excelimportroute")
 
 app.use(cors({
     origin: '*'
@@ -54,7 +55,7 @@ app.use(auth,loginuserroute)
 app.use(subjectroute)
 app.use(diseaseroute)
 app.use(familyDataRoute)
-
+app.use(excelImportRoute)
 
 // app.send("hello")    
 server.listen(port, () => {

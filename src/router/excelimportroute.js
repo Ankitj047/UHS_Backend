@@ -1,8 +1,9 @@
 const express = require("express");
-const exceltestdata = require("../Models/exceltestdata");
+const registeruser = require("../Models/register");
 const excelImportRoute = new express.Router();
 const multer = require("multer");
 const XLSX = require("xlsx");
+const loginuserdata = require("../Models/userdata");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -19,7 +20,6 @@ excelImportRoute.post(
   "/excelImportTestRoute",
   upload.single("file"),
   async (req, res) => {
-    console.log(req.file, "req.file");
     try {
       let path = req.file.path;
       var workbook = XLSX.readFile(path);
@@ -34,23 +34,35 @@ excelImportRoute.post(
         });
       }
 
-      let saveData = await exceltestdata.create(jsonData);
+      const regiterAddData = jsonData.map(({ email, pass }) => ({
+        email,
+        pass,
+      }));
+
+      let saveRegisterData = await registeruser.create(regiterAddData);
+
+      const UserData = [];
+      const newuserData = []
+      const newData = jsonData.map(async (item) => {
+        const checkData = await registeruser.findOne({ email: item.email });
+        const newCheckdata = await UserData.push(checkData);
+
+   UserData.map((test) => {
+          if (item.email == test.email) {
+            const newTestdata = newuserData.push({ ...item, userId: test._id });
+            const UserAddData = newuserData.map(({ fname, lname, age, email, phone, isaccept, userId }) => ({fname, lname, age, email, phone, isaccept, userId}));
+            let saveUserData = loginuserdata.create(UserAddData);
+          }
+        });
+      });
+
       return res.status(201).json({
         success: true,
-        message: saveData.length + " rows added to the database",
+        message: saveRegisterData.length + " rows added to the database",
       });
     } catch (error) {
       console.log(error?.message);
     }
-
-    // try {
-    //   const excelData = new exceltestdata(req.body);
-    //   const createExcelData = await excelData.save();
-
-    //   return res.status(200).send(createExcelData);
-    // } catch (error) {
-    //   console.log(error?.message);
-    // }
   }
 );
 

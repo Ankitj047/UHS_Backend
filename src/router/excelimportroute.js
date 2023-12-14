@@ -59,6 +59,7 @@ excelImportRoute.post(
       return res.status(201).json({
         success: true,
         message: saveRegisterData.length + " rows added to the database",
+        RegisterData: saveRegisterData
       });
     } catch (error) {
       console.log(error?.message);

@@ -39,7 +39,9 @@ loginuserroute.patch("/userpersonaldata", Upload.single("profilephoto") ,async (
     const url = req.protocol + '://' + req.get('host')
     const userdataa = await loginuserdata.findOne({ userId: _id });
     if (userdataa) {
-      const updatedUSer = await loginuserdata.findOneAndUpdate({ userId: _id },req.body,{new: true});
+      console.log(req.body,"req.body")
+      console.log(req.file,"profilephoto")
+      const updatedUSer = await loginuserdata.findOneAndUpdate({ userId: _id },{...req.body, profilephoto: url + '/images/' + req?.file?.filename},{new: true});
       return res.status(200).send({message: "Updated"});
     } else {
       const userdata = new loginuserdata({
